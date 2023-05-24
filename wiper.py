@@ -19,6 +19,7 @@ data = {
         "ContactEmail": "something@gmail.com",
         "ContactPhone": "12345678"
     }, 
+    "PreparedBy": "ESNI",
     "NDT": "Udført",
     "AntalEmner": 2,
     "Dimension": "Ø219x3",
@@ -37,9 +38,11 @@ data = {
         "b1": "37",
         "a": "gt",
         "R": "25",
-        "Cut": False,
-        "Machined": False,
-        "Ready for Testing": False
+        "Status": {
+            "Cut": False,
+            "Machined": False,
+            "Ready for Testing": False
+        }
     },
     "Bøjeprøvning": {
         "Valid": True,
@@ -51,12 +54,27 @@ data = {
         "a": "gt",
         "b": "14",
         "c": "Som mulig",
-        "Cut": False,
-        "Machined": False,
-        "Ready for Testing": False
+        "Status": {
+            "Cut": False,
+            "Machined": False,
+            "Ready for Testing": False
+        }
     },
     "Slagsejhedsprøvning": {
-        "Valid": False
+        "Valid": False,
+        "Antal": 0,
+        "Prøve nmr": "None",
+        "Kærvtype": "None",
+        "Prøvestandard": "None",
+        "a": "None",
+        "b": "None",
+        "c": "None",
+        "Prøver": {},
+        "Status": {
+            "Cut": False,
+            "Machined": False,
+            "Ready for Testing": False
+        }
     }, 
     "Makroætsning": {
         "Valid": True,
@@ -65,10 +83,13 @@ data = {
         "Slibes planparallel til hårdhedsmåling": True,
         "Spektralanalyse": False,
         "Korrosionsprøve": False,
-        "Cut": False,
-        "Machined": False,
-        "Ready for Testing": False
-    }
+        "Status": {
+            "Cut": False,
+            "Machined": False,
+            "Ready for Testing": False
+        }
+    },
+    "ImagePath": "None"
 }
 
 ref1.set(data)

@@ -6,7 +6,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-     <title>FORCE Technology Data-Portal</title>
+     <title>FORCE Technology Data Portal</title>
  
      <!-- Bootstrap CSS CDN -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -50,7 +50,7 @@
                          </svg>
                      </a>
                  </li>
-                 <li id = 'login'>
+                 <!-- <li id = 'login'>
                     <a data-toggle="modal" data-target="#loginModal" href="#">
                         Login
                     </a>
@@ -59,15 +59,15 @@
                      <a data-toggle="modal" data-target="#regModal" href = "#">
                          Register
                      </a>
-                 </li>
-                 <li id = 'proj'>
+                 </li> -->
+                 <!-- <li id = 'proj'>
                      <a href="projectInfo.html">
                          Project Information
                      </a>
                  </li>
                  <li class="nav-item" id = 'logout'>
                      <a id="logout-btn" href="#">Logout</a>
-                 </li>
+                 </li> -->
              </ul>
              
  
@@ -158,7 +158,302 @@
              <div class="text-center">
                  <h1>FORCE Technology Task Data Portal</h1>
              </div>
-             
+             <br>
+             <div id="allData" class = "text-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Task Number</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Reference Number</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Client Email</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p id="taskno"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p id="refno"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p id="clientEmail"></p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Prepared By</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Antal Emner</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>NDT</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Dimensions</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p id="order"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p id="antalemner"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p id="ndt"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p id="dims"></p>
+                    </div>
+                </div>
+                <div id="tensileTable">
+                    <table class = "table table-hover" id = "tensile">
+                        <thead>
+                            <tr>
+                                <th colspan = "7">
+                                    <h5>Trækprøvning</h5>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id = "tensileData1">
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Antal: </b>
+                                    <p id = "tantal"  style = "display: inline;"></p>
+                                </td>
+                                <td colspan = "4">
+                                    <b style = "display: inline;">Prøve Nummer: </b>
+                                    <p id = "tprøvenmr" style = "display: inline;"></p>
+                                </td>
+                            </tr>
+                            <tr id="tensileData2">
+                                <td colspan = "2">
+                                    <b>Overvulst slibes-bearbejdes: </b><input type = "checkbox" id = "tovervulst" disabled>
+                                </td>
+                                <td colspan = "3">
+                                    <b>Rodvulst slibes-bearbejdes: </b><input type = "checkbox" id = "trodvulst" disabled>
+                                </td>
+                                <td colspan = "2">
+                                    <b>Slibes let: </b><input type = "checkbox" id = 'tslibes' disabled>
+                                </td>
+                            </tr>
+                            <!-- <tr id="tensileData3">
+                                <td>
+                                    <b  style = "display: inline;">L<sub>t</sub>: </b>
+                                    <p  style = "display: inline;" id = "tlt"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">L<sub>c</sub>: </b>
+                                    <p style = "display: inline;" id = "tlc"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">f: </b>
+                                    <p style = "display: inline;" id = "tf"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">b: </b>
+                                    <p style = "display: inline;" id = "tb"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">b<sub>1</sub>: </b>
+                                    <p style = "display: inline;" id = "tb1"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">a: </b>
+                                    <p style = "display: inline;" id = "ta"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">R: </b>
+                                    <p style = "display: inline;" id = "tR"></p>
+                                </td>
+                            </tr> -->
+                            <tr id = "tensileStatus">
+                                <td id="cut" colspan = "2">
+                                    <b>Skæret: </b><input type="checkbox" id = "tcutbool">
+                                </td>
+                                <td id="machined" colspan = "2">
+                                    <b>Bearbejdet: </b><input type="checkbox" id = "tmachinedbool">
+                                </td>
+                                <td id="ready" colspan = "3">
+                                    <b>Klar for Prøver: </b><input type="checkbox" id = "treadybool">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div id="bendTable">
+                    <table class="table table-hover" id="bend">
+                        <thead>
+                            <tr>
+                                <th colspan = "7">
+                                    <h5>Bøjeprøvning</h5>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id = "bendData1">
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Antal: </b>
+                                    <p id = "bantal"  style = "display: inline;"></p>
+                                </td>
+                                <td colspan = "4">
+                                    <b style = "display: inline;">Prøve Nummer: </b>
+                                    <p id = "bprøvenmr" style = "display: inline;"></p>
+                                </td>
+                            </tr>
+                            <tr id="bendData2">
+                                <td colspan = "2">
+                                    <b>Overvulst fjernes: </b><input type = "checkbox" id = "bovervulst" disabled>
+                                </td>
+                                <td colspan = "3">
+                                    <b>Rodvulst fjernes: </b><input type = "checkbox" id = "brodvulst" disabled>
+                                </td>
+                                <td colspan = "2">
+                                    <b>Slibes let: </b><input type = "checkbox" id = 'bslibes' disabled>
+                                </td>
+                            </tr>
+                            <!-- <tr id="bendData3">
+                                <td>
+                                    <b style = "display: inline;">a: </b>
+                                    <p style = "display: inline;" id = "ba"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">b: </b>
+                                    <p style = "display: inline;" id = "bb"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">c: </b>
+                                    <p style = "display: inline;" id = "bc"></p>
+                                </td>
+                            </tr> -->
+                            <tr id = "tensileStatus">
+                                <td id="cut" colspan = "2">
+                                    <b>Skæret: </b><input type="checkbox" id = "bcutbool">
+                                </td>
+                                <td id="machined" colspan = "2">
+                                    <b>Bearbejdet: </b><input type="checkbox" id = "bmachinedbool">
+                                </td>
+                                <td id="ready" colspan = "3">
+                                    <b>Klar for Prøver: </b><input type="checkbox" id = "breadybool">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div id="impactTable">
+                    <table class="table table-hover" id="impact">
+                        <thead>
+                            <tr>
+                                <th colspan = "7">
+                                    <h5>Slagsejhedsprøvning</h5>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id = "impactData1">
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Antal: </b>
+                                    <p id = "santal"  style = "display: inline;"></p>
+                                </td>
+                                <td colspan = "4">
+                                    <b style = "display: inline;">Prøve Nummer: </b>
+                                    <p id = "sprøvenmr" style = "display: inline;"></p>
+                                </td>
+                            </tr>
+                            <tr id="impactData2">
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Kærvtype: </b>
+                                    <p id = "kærvtype" style = "display: inline;"></p>
+                                </td>
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Prøvestandard: </b>
+                                    <p id = "standard" style = "display: inline;"></p>
+                                </td>
+                            </tr>
+                            <!-- <tr id="impactData3">
+                                <td>
+                                    <b style = "display: inline;">a: </b>
+                                    <p style = "display: inline;" id = "ia"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">b: </b>
+                                    <p style = "display: inline;" id = "ib"></p>
+                                </td>
+                                <td>
+                                    <b style = "display: inline;">c: </b>
+                                    <p style = "display: inline;" id = "ic"></p>
+                                </td>
+                            </tr> -->
+                            <tr id = "impactStatus">
+                                <td id="cut" colspan = "2">
+                                    <b>Skæret: </b><input type="checkbox" id = "scutbool">
+                                </td>
+                                <td id="machined" colspan = "2">
+                                    <b>Bearbejdet: </b><input type="checkbox" id = "smachinedbool">
+                                </td>
+                                <td id="ready" colspan = "3">
+                                    <b>Klar for Prøver: </b><input type="checkbox" id = "sreadybool">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div id="macroTable">
+                    <table class="table table-hover" id="macro">
+                        <thead>
+                            <tr>
+                                <th colspan = "6">
+                                    <h5>Makroætsning</h5>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id = "macroData1">
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Antal: </b>
+                                    <p id = "mantal"  style = "display: inline;"></p>
+                                </td>
+                                <td colspan = "3">
+                                    <b style = "display: inline;">Prøve Nummer: </b>
+                                    <p id = "mprøvenmr" style = "display: inline;"></p>
+                                </td>
+                            </tr>
+                            <tr id="macroData2">
+                                <td colspan = "2">
+                                    <b>Spektralanalyse: </b><input type = "checkbox" id = "mspektral" disabled>
+                                </td>
+                                <td colspan = "2">
+                                    <b>Korrosionsprøve: </b><input type = "checkbox" id = "mkorrosion" disabled>
+                                </td>
+                                <td colspan = "2">
+                                    <b>Slibes planparallel til hårdhedsmåling: </b><input type = "checkbox" id = 'mslibes' disabled>
+                                </td>
+                            </tr>
+                            <tr id = "macroStatus">
+                                <td id="cut" colspan = "2">
+                                    <b>Skæret: </b><input type="checkbox" id = "mcutbool">
+                                </td>
+                                <td id="machined" colspan = "2">
+                                    <b>Bearbejdet: </b><input type="checkbox" id = "mmachinedbool">
+                                </td>
+                                <td id="ready" colspan = "2">
+                                    <b>Klar for Prøver: </b><input type="checkbox" id = "mreadybool">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <button class = "btn btn-primary" id = "savebtn">Gem Ændringer</button>
+             </div>
          </div>
           
      </div>
