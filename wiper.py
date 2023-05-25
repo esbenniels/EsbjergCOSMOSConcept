@@ -61,7 +61,7 @@ data = {
         }
     },
     "Slagsejhedsprøvning": {
-        "Valid": False,
+        "Valid": True,
         "Antal": 0,
         "Prøve nmr": "None",
         "Kærvtype": "None",

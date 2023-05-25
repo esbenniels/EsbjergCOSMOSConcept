@@ -38,12 +38,13 @@ function addPeriods(input) {
     if (task != null) {
         var taskData;
         onValue(ref(database, "Tasks/" + removePeriods(task)), (snapshot) => {
+            console.log("retrieving");
             taskData = snapshot.val();
             // console.log(taskData);
             if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || 
-            navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || 
-            navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || 
-            navigator.userAgent.match(/Windows Phone/i)) {
+                navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || 
+                navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || 
+                navigator.userAgent.match(/Windows Phone/i)) {
                 // now in mobile browser
                 // only show crucial information
             } else { // now in desktop browser
@@ -103,7 +104,7 @@ function addPeriods(input) {
                     document.getElementById('santal').innerText = String(taskData.Slagsejhedsprøvning.Antal);
                     document.getElementById('sprøvenmr').innerText = String(taskData.Slagsejhedsprøvning['Prøve nmr']);
                     document.getElementById("kærvtype").innerText = taskData.Slagsejhedsprøvning.Kærvtype;
-                    document.getElmentById("standard").innerText = taskData.Slagsejhedsprøvning.Prøvestandard;
+                    document.getElementById("standard").innerText = taskData.Slagsejhedsprøvning.Prøvestandard;
                     // document.getElementById('ia').innerText = taskData.Slagsejhedsprøvning['a'];
                     // document.getElementById('ib').innerText = taskData.Slagsejhedsprøvning['b'];
                     // document.getElementById('ic').innerText = taskData.Slagsejhedsprøvning['c'];
@@ -130,51 +131,67 @@ function addPeriods(input) {
                     removeAllChildNodes(document.getElementById("macroTable"));
                 }
             }
-
-        })
-    } else {
-        // hide allData div
-        removeAllChildNodes(document.getElementById('allData'));
-    }
-
-    if (task != null) {
-        // handling the save button
-        document.querySelector("#savebtn").addEventListener("click", function(e) {
-            e.preventDefault();
             const tpath = "Tasks/"+removePeriods(task)+"/Trækprøvning/Status/";
             const bpath = "Tasks/"+removePeriods(task)+"/Bøjeprøvning/Status/";
             const ipath = "Tasks/"+removePeriods(task)+"/Slagsejhedsprøvning/Status/";
             const mpath = "Tasks/"+removePeriods(task)+"/Makroætsning/Status/";
-
-            var taskData;
-            onValue(ref(database, "Tasks/" + removePeriods(task)), (snapshot) => {
-                taskData = snapshot.val();
-            })
             
             if (taskData.Trækprøvning.Valid) {
-                set(ref(database, tpath + "Cut"), document.getElementById("tcutbool").checked);
-                set(ref(database, tpath + "Machined"), document.getElementById("tmachinedbool").checked);
-                set(ref(database, tpath + "Ready for Testing"), document.getElementById("treadybool").checked);
+                document.getElementById("tcutbool").addEventListener("change", function() {
+                    set(ref(database, tpath + "Cut"), document.getElementById("tcutbool").checked);
+                })
+                document.getElementById("tmachinedbool").addEventListener("change", function() {
+                    set(ref(database, tpath + "Machined"), document.getElementById("tmachinedbool").checked);
+                })
+                document.getElementById("treadybool").addEventListener("change", function() {
+                    set(ref(database, tpath + "Ready for Testing"), document.getElementById("treadybool").checked);
+                })
             }
 
             if (taskData.Bøjeprøvning.Valid) {
-                set(ref(database, bpath + "Cut"), document.getElementById("bcutbool").checked);
-                set(ref(database, bpath + "Machined"), document.getElementById("bmachinedbool").checked);
-                set(ref(database, bpath + "Ready for Testing"), document.getElementById("breadybool").checked);
+                document.getElementById("bcutbool").addEventListener("change", function() {
+                    set(ref(database, bpath + "Cut"), document.getElementById("bcutbool").checked);
+                })
+                document.getElementById("bmachinedbool").addEventListener("change", function() {
+                    set(ref(database, bpath + "Machined"), document.getElementById("bmachinedbool").checked);
+                })
+                document.getElementById("breadybool").addEventListener("change", function() {
+                    set(ref(database, bpath + "Ready for Testing"), document.getElementById("breadybool").checked);
+                })
             }
 
             if (taskData.Slagsejhedsprøvning.Valid) {
-            set(ref(database, ipath + "Cut"), document.getElementById("scutbool").checked);
-            set(ref(database, ipath + "Machined"), document.getElementById("smachinedbool").checked);
-            set(ref(database, ipath + "Ready for Testing"), document.getElementById("sreadybool").checked);
+                document.getElementById("scutbool").addEventListener("change", function() {
+                    set(ref(database, ipath + "Cut"), document.getElementById("scutbool").checked);
+                })
+                document.getElementById("smachinedbool").addEventListener("change", function() {
+                    set(ref(database, ipath + "Machined"), document.getElementById("smachinedbool").checked);
+                })
+                document.getElementById("sreadybool").addEventListener("change", function() {
+                    set(ref(database, ipath + "Ready for Testing"), document.getElementById("sreadybool").checked);
+                })
             }
 
             if (taskData.Makroætsning.Valid) {
-            set(ref(database, mpath + "Cut"), document.getElementById("mcutbool").checked);
-            set(ref(database, mpath + "Machined"), document.getElementById("mmachinedbool").checked);
-            set(ref(database, mpath + "Ready for Testing"), document.getElementById("mreadybool").checked);
+                document.getElementById("mcutbool").addEventListener("change", function() {
+                    set(ref(database, mpath + "Cut"), document.getElementById("mcutbool").checked);
+                })
+                document.getElementById("mmachinedbool").addEventListener("change", function() {
+                    set(ref(database, mpath + "Machined"), document.getElementById("mmachinedbool").checked);
+                })
+                document.getElementById("mreadybool").addEventListener("change", function() {
+                    set(ref(database, mpath + "Ready for Testing"), document.getElementById("mreadybool").checked);
+                })
             }
+
         })
+
+        
+
+
+    } else {
+        // hide allData div
+        removeAllChildNodes(document.getElementById('allData'));
     }
 }
 
