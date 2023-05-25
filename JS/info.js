@@ -76,6 +76,7 @@ function addPeriods(input) {
 
 
                 } else {
+                    console.log("clearing tensile test");
                     removeAllChildNodes(document.getElementById("tensileTable"));
                 }
 
@@ -93,6 +94,7 @@ function addPeriods(input) {
                     document.getElementById('bmachinedbool').checked = taskData.Bøjeprøvning.Status['Machined'];
                     document.getElementById('breadybool').checked = taskData.Bøjeprøvning.Status['Ready for Testing'];
                 } else {
+                    console.log("clearing bend test");
                     removeAllChildNodes(document.getElementById("bendTable"));
                 }
 
@@ -109,6 +111,7 @@ function addPeriods(input) {
                     document.getElementById('smachinedbool').checked = taskData.Slagsejhedsprøvning.Status['Machined'];
                     document.getElementById('sreadybool').checked = taskData.Slagsejhedsprøvning.Status['Ready for Testing'];
                 } else {
+                    console.log("clearing impact test");
                     removeAllChildNodes(document.getElementById("impactTable"));
                 }
 
@@ -123,6 +126,7 @@ function addPeriods(input) {
                     document.getElementById('mmachinedbool').checked = taskData.Makroætsning.Status['Machined'];
                     document.getElementById('mreadybool').checked = taskData.Makroætsning.Status['Ready for Testing'];
                 } else {
+                    console.log("clearing macro test");
                     removeAllChildNodes(document.getElementById("macroTable"));
                 }
             }
@@ -136,31 +140,40 @@ function addPeriods(input) {
 
     // handling the save button
     document.querySelector("#savebtn").addEventListener("click", function(e) {
-        const updates = {};
+        e.preventDefault();
         const tpath = "Tasks/"+removePeriods(task)+"/Trækprøvning/Status/";
         const bpath = "Tasks/"+removePeriods(task)+"/Bøjeprøvning/Status/";
         const ipath = "Tasks/"+removePeriods(task)+"/Slagsejhedsprøvning/Status/";
         const mpath = "Tasks/"+removePeriods(task)+"/Makroætsning/Status/";
-        set(ref(database, tpath), {
-            "Cut": document.getElementById("tcutbool"),
-            "Machined": document.getElementById("tmachinedbool"),
-            "Ready for Testing": document.getElementById("treadybool"),
+
+        var taskData;
+        onValue(ref(database, "Tasks/" + removePeriods(task)), (snapshot) => {
+            taskData = snapshot.val();
         })
-        set(ref(database, bpath), {
-            "Cut": document.getElementById("bcutbool"),
-            "Machined": document.getElementById("bmachinedbool"),
-            "Ready for Testing": document.getElementById("breadybool"),
-        })
-        set(ref(database, ipath), {
-            "Cut": document.getElementById("icutbool"),
-            "Machined": document.getElementById("imachinedbool"),
-            "Ready for Testing": document.getElementById("ireadybool"),
-        })
-        set(ref(database, mpath), {
-            "Cut": document.getElementById("mcutbool"),
-            "Machined": document.getElementById("mmachinedbool"),
-            "Ready for Testing": document.getElementById("mreadybool"),
-        })
+        
+        if (taskData.Trækprøvning.Valid) {
+            set(ref(database, tpath + "Cut"), document.getElementById("tcutbool").checked);
+            set(ref(database, tpath + "Machined"), document.getElementById("tmachinedbool").checked);
+            set(ref(database, tpath + "Ready for Testing"), document.getElementById("treadybool").checked);
+        }
+
+        if (taskData.Bøjeprøvning.Valid) {
+            set(ref(database, bpath + "Cut"), document.getElementById("bcutbool").checked);
+            set(ref(database, bpath + "Machined"), document.getElementById("bmachinedbool").checked);
+            set(ref(database, bpath + "Ready for Testing"), document.getElementById("breadybool").checked);
+        }
+
+        if (taskData.Slagsejhedsprøvning.Valid) {
+        set(ref(database, ipath + "Cut"), document.getElementById("scutbool").checked);
+        set(ref(database, ipath + "Machined"), document.getElementById("smachinedbool").checked);
+        set(ref(database, ipath + "Ready for Testing"), document.getElementById("sreadybool").checked);
+        }
+
+        if (taskData.Makroætsning.Valid) {
+        set(ref(database, mpath + "Cut"), document.getElementById("mcutbool").checked);
+        set(ref(database, mpath + "Machined"), document.getElementById("mmachinedbool").checked);
+        set(ref(database, mpath + "Ready for Testing"), document.getElementById("mreadybool").checked);
+        }
     })
 }
 
