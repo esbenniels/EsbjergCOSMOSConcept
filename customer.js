@@ -31,6 +31,86 @@ function addPeriods(input) {
     return input.replace(/\_\(\)/g, ".");
 }
 
+// <------------------------------------Special Behavior------------------------------------>
+
+onValue(ref(database, "Results"), (snapshot) => {
+    removeAllChildNodes(document.getElementById("taskno"));
+    var data = snapshot.val();
+    for (let task in data) {
+        var option = document.createElement("option");
+        option.innerText = task;
+        option.value = task;
+        document.getElementById("taskno").appendChild(option);
+    }
+    removeAllChildNodes(document.getElementById("wpqrno"));
+    onValue(ref(database, "Results/"+removePeriods(document.getElementById("taskno").value)), (snapshot) => {
+        for (let wpqr in snapshot.val()) {
+            var option = document.createElement("option");
+            option.innerText = wpqr;
+            option.value = wpqr;
+            document.getElementById("wpqrno").appendChild(option);
+        }
+    })
+})
+
+document.querySelector("#taskno").addEventListener("change", function() {
+    removeAllChildNodes(document.getElementById("wpqrno"));
+    onValue(ref(database, "Results/"+removePeriods(document.getElementById("taskno").value)), (snapshot) => {
+        for (let wpqr in snapshot.val()) {
+            var option = document.createElement("option");
+            option.innerText = wpqr;
+            option.value = wpqr;
+            document.getElementById("wpqrno").appendChild(option);
+        }
+    })
+})
+
+function boolToAccept(boolean) {
+    if (boolean) return "Acceptable";
+    else return "Not Acceptable";
+}
+
+var taskData;
+document.querySelector("#submit").addEventListener("click", function() {
+    const path = "Results/"+removePeriods(document.getElementById("taskno").value) + "/" + document.getElementById("wpqrno");
+    console.log(path);
+    onValue(ref(database, path), (snapshot) => {
+        taskData = snapshot.val();
+        var tensileAvg;
+        var sum = 0;
+        var n = 0;
+        for (let strength in taskData.DT.Tensile.Result) {
+            sum += taskData.DT.Tensile.Result[strength];
+            n++;
+        }
+        tensileAvg = sum/n;
+        var assignments = {
+            vacc: boolToAccept(taskData['NDT']['Visual']['Result']),
+            visual_comments: taskData.NDT.Visual.Comments,
+            uacc: boolToAccept(taskData.NDT.Ultrasonic.Result),
+            ultrasonic_comments: taskData.NDT.Ultrasonic.Comments,
+            macc: boolToAccept(taskData.NDT.Magnetic.Result),
+            magnetic_comments: taskData.NDT.Magnetic.Comments,
+            tavg: "Average Tensile Strength: " + String(tensileAvg),
+            tensile_comments: taskData.DT.Tensile.Comments,
+            // handle bend acceptance display
+            bend_comments: taskData.DT.Bend.Comments,
+            // handle impact energy averages
+            impact_comments: taskData.DT.Impact.Comments,
+            macro_acc: boolToAccept(taskData.DT.Macro.Result),
+            macro_comments: taskData.DT.Macro.Comments,
+            // handle hardness data points
+            hardness_comments: taskData.DT.Hardness.Comments
+        }
+
+        // loop through assignments and use document.getElementById()
+        // and innerText to fill in fields
+    })
+})
+
+
+// <-----------------------------------------------------Default behavior---------------------------------------->
+
 var currentUser;
 //listen for auth status changes
 onAuthStateChanged(auth, user => {
@@ -113,10 +193,10 @@ onAuthStateChanged(auth, user => {
 //     })
 // })
 
-onAuthStateChanged(auth, user => {
-    if (user) {
-        document.getElementById('sign-in-state').innerText = "Signed In";
-    } else {
-        document.getElementById('sign-in-state').innerText = "Signed Out";
-    }
-})
+// onAuthStateChanged(auth, user => {
+//     if (user) {
+//         document.getElementById('sign-in-state').innerText = "Signed In";
+//     } else {
+//         document.getElementById('sign-in-state').innerText = "Signed Out";
+//     }
+// })

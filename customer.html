@@ -35,7 +35,7 @@
          <!-- Sidebar  -->
          <nav id="sidebar">
              <div class="sidebar-header">
-                 <h3>FORCE Technology Kundeportal</h3>
+                 <h3>FORCE Technology Client Portal</h3>
              </div>
  
              <ul class="list-unstyled components">
@@ -162,12 +162,187 @@
  
          <div id="content" class = "text-center">
              <div class="text-center">
-                 <h1>FORCE Technology Kundeportal</h1>
+                 <h1>FORCE Technology Client Portal</h1>
              </div>
-             <div class="container pad">
-                 <div class="pad" id = 'loginMessage'></div>
-             </div>
-         </div>
+             <br>
+             <form>
+                <div class="row">
+                    <div class="col-md-5 text-left">
+                        <label for="taskno">Select Task Number Here</label>
+                    </div>
+                    <div class="col-md-5 text-left">
+                        <label for="wpqrno">Select WPQR Number Here</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <select name = "taskno" id = "taskno" class = "form-control"></select>
+                    </div>
+                    <div class="col-md-5">
+                        <select name="wpqrno" id = "wpqrno" class = "form-control"></select>
+                    </div>
+                    <div class="col-md-2 text-left">
+                        <button class="btn btn-primary" id = "submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div id="allData" class = "text-center">
+                <table id="ndt" class = "table table-hover">
+                    <!-- data goes here -->
+                    <thead>
+                        <tr>
+                            <th colspan = "3"><h5>Non-Destructive Testing</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="visual">
+                            <td><b>Visual Testing</b></td>
+                            <td id="vacc"></td>
+                            <td id = "visual_comments">Comments: </td>
+                        </tr>
+                        <tr id="ultrasonic">
+                            <td><b>Ultrasonic Testing</b></td>
+                            <td id="uacc"></td>
+                            <td id = "ultrasonic_comments">Comments: </td>
+                        </tr>
+                        <tr id="magnetic">
+                            <td><b>Magnetic Particle Testing</b></td>
+                            <td id="macc"></td>
+                            <td id = "magnetic_comments">Comments: </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <table id="dt" class = "table table-hover">
+                    <!-- data goes here -->
+                    <thead>
+                        <tr>
+                            <th colspan = "3" style="width: 100%"><h5>Destructive Testing</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- TENSILE Section -->
+                        <!-- <div id="tensile"> -->
+                            <!-- results -->
+                            <tr>
+                                <td class = "text-left" style="width: 25%"><b>Tensile Testing</b></td>
+                                <td colspan="3" id = "tavg">Average Tensile Strength: </td>
+                            </tr>
+                            <tr>
+                                <td colspan = "3" id = "tensile_comments">Comments: </td>
+                            </tr>
+                            <!-- comments -->
+
+                        <!-- </div> -->
+                        <!-- BEND Section -->
+                        <!-- <div id="bend"> -->
+                            <!-- results -->
+                            <tr>
+                                <td colspan="3"></td>
+                            </tr>
+                            <tr>
+                                <td class = "text-left"><b>Bend Testing</b></td>
+                                <td>Acceptance Results: </td>
+                                <td id = "bacc"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" rowspan="2" id = "bend_comments">Comments: </td>
+                            </tr>
+                            <tr>
+
+                            </tr>
+                            <!-- comments -->
+                            <tr>
+                                <td colspan="3"></td>
+                            </tr>
+                        <!-- </div> -->
+                        <!-- IMPACT Section -->
+                        <!-- <div id="impact"> -->
+                            <!-- results -->
+                            <tr>
+                                <td class="text-left" style = "width: 25%;"><b>Impact Testing</b></td>
+                                <td id = "" class = "text-left">
+                                    <button class = "btn-primary" data-toggle="modal" data-target="#energyModal" href="#">
+                                        Show energy averages
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" rowspan="2" id = "impact_comments">Comments: </td>
+                            </tr>
+                            <!-- comments -->
+                            <tr>
+                                <td colspan="3"></td>
+                            </tr>
+                        <!-- </div> -->
+                        <!-- MACRO Section -->
+                        <!-- <div id="macro"> -->
+                            <!-- results -->
+                            <tr>
+                                <td class="text-left" style = "width: 25%;"><b>Macro Testing</b></td>
+                                <td>Result: </td>
+                                <td id = "macro_acc"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" id = "macro_comments">Comments: </td>
+                            </tr>
+                            <!-- comments -->
+                            <tr>
+                                <td colspan="3"></td>
+                            </tr>
+                        <!-- </div> -->
+                        <!-- HARDNESS Section -->
+                        <!-- <div id="hardness"> -->
+                            <!-- results -->
+                            <tr>
+                                <td class="text-left" style = "width: 25%;"><b>Hardness Testing</b></td>
+                                <td>
+                                    <label for="trial-select">Select a Trial</label>
+                                    <select name="trial-select" id="trial-select">
+                                        <option value="">I</option>
+                                        <option value="">II</option>
+                                    </select>
+                                </td>
+                                <td id="info"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" id = "hardness_comments">Comments: </td>
+                            </tr>
+                            <!-- comments -->
+                            
+                        <!-- </div> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal fade" id="energyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Impact Energies</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="energies" style = "width: 100%;">
+                                <thead>
+                                    <th style = "width: 50%;" class = "text-center">Notch Location</th>
+                                    <th style = "width: 50%;" class = "text-center">Average Energy</th>
+                                </thead>
+                                <tbody id = "impact_energies">
+                                    <tr>
+                                        <td class = "text-center">VHT 0/2</td>
+                                        <td class = "text-center">61</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
           
      </div>
  
