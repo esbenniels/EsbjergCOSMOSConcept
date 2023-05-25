@@ -40,8 +40,12 @@ function addPeriods(input) {
         onValue(ref(database, "Tasks/" + removePeriods(task)), (snapshot) => {
             console.log("retrieving");
             taskData = snapshot.val();
-            // console.log(taskData);
-            if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || 
+            if (taskData == null) {
+                removeAllChildNodes(document.getElementById("allData"));
+                var error = document.createElement("h5");
+                error.innerText = "Ugyldigt Task Nummer";
+                document.getElementById("allData").appendChild(error);
+            } else if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || 
                 navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || 
                 navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || 
                 navigator.userAgent.match(/Windows Phone/i)) {
@@ -192,57 +196,59 @@ function addPeriods(input) {
                     removeAllChildNodes(document.getElementById("macroTable"));
                 }
             }
-            const tpath = "Tasks/"+removePeriods(task)+"/Trækprøvning/Status/";
-            const bpath = "Tasks/"+removePeriods(task)+"/Bøjeprøvning/Status/";
-            const ipath = "Tasks/"+removePeriods(task)+"/Slagsejhedsprøvning/Status/";
-            const mpath = "Tasks/"+removePeriods(task)+"/Makroætsning/Status/";
-            
-            if (taskData.Trækprøvning.Valid) {
-                document.getElementById("tcutbool").addEventListener("change", function() {
-                    set(ref(database, tpath + "Cut"), document.getElementById("tcutbool").checked);
-                })
-                document.getElementById("tmachinedbool").addEventListener("change", function() {
-                    set(ref(database, tpath + "Machined"), document.getElementById("tmachinedbool").checked);
-                })
-                document.getElementById("treadybool").addEventListener("change", function() {
-                    set(ref(database, tpath + "Ready for Testing"), document.getElementById("treadybool").checked);
-                })
-            }
+            if (taskData != null) {
+                const tpath = "Tasks/"+removePeriods(task)+"/Trækprøvning/Status/";
+                const bpath = "Tasks/"+removePeriods(task)+"/Bøjeprøvning/Status/";
+                const ipath = "Tasks/"+removePeriods(task)+"/Slagsejhedsprøvning/Status/";
+                const mpath = "Tasks/"+removePeriods(task)+"/Makroætsning/Status/";
+                
+                if (taskData.Trækprøvning.Valid) {
+                    document.getElementById("tcutbool").addEventListener("change", function() {
+                        set(ref(database, tpath + "Cut"), document.getElementById("tcutbool").checked);
+                    })
+                    document.getElementById("tmachinedbool").addEventListener("change", function() {
+                        set(ref(database, tpath + "Machined"), document.getElementById("tmachinedbool").checked);
+                    })
+                    document.getElementById("treadybool").addEventListener("change", function() {
+                        set(ref(database, tpath + "Ready for Testing"), document.getElementById("treadybool").checked);
+                    })
+                }
 
-            if (taskData.Bøjeprøvning.Valid) {
-                document.getElementById("bcutbool").addEventListener("change", function() {
-                    set(ref(database, bpath + "Cut"), document.getElementById("bcutbool").checked);
-                })
-                document.getElementById("bmachinedbool").addEventListener("change", function() {
-                    set(ref(database, bpath + "Machined"), document.getElementById("bmachinedbool").checked);
-                })
-                document.getElementById("breadybool").addEventListener("change", function() {
-                    set(ref(database, bpath + "Ready for Testing"), document.getElementById("breadybool").checked);
-                })
-            }
+                if (taskData.Bøjeprøvning.Valid) {
+                    document.getElementById("bcutbool").addEventListener("change", function() {
+                        set(ref(database, bpath + "Cut"), document.getElementById("bcutbool").checked);
+                    })
+                    document.getElementById("bmachinedbool").addEventListener("change", function() {
+                        set(ref(database, bpath + "Machined"), document.getElementById("bmachinedbool").checked);
+                    })
+                    document.getElementById("breadybool").addEventListener("change", function() {
+                        set(ref(database, bpath + "Ready for Testing"), document.getElementById("breadybool").checked);
+                    })
+                }
 
-            if (taskData.Slagsejhedsprøvning.Valid) {
-                document.getElementById("scutbool").addEventListener("change", function() {
-                    set(ref(database, ipath + "Cut"), document.getElementById("scutbool").checked);
-                })
-                document.getElementById("smachinedbool").addEventListener("change", function() {
-                    set(ref(database, ipath + "Machined"), document.getElementById("smachinedbool").checked);
-                })
-                document.getElementById("sreadybool").addEventListener("change", function() {
-                    set(ref(database, ipath + "Ready for Testing"), document.getElementById("sreadybool").checked);
-                })
-            }
+                if (taskData.Slagsejhedsprøvning.Valid) {
+                    document.getElementById("scutbool").addEventListener("change", function() {
+                        set(ref(database, ipath + "Cut"), document.getElementById("scutbool").checked);
+                    })
+                    document.getElementById("smachinedbool").addEventListener("change", function() {
+                        set(ref(database, ipath + "Machined"), document.getElementById("smachinedbool").checked);
+                    })
+                    document.getElementById("sreadybool").addEventListener("change", function() {
+                        set(ref(database, ipath + "Ready for Testing"), document.getElementById("sreadybool").checked);
+                    })
+                }
 
-            if (taskData.Makroætsning.Valid) {
-                document.getElementById("mcutbool").addEventListener("change", function() {
-                    set(ref(database, mpath + "Cut"), document.getElementById("mcutbool").checked);
-                })
-                document.getElementById("mmachinedbool").addEventListener("change", function() {
-                    set(ref(database, mpath + "Machined"), document.getElementById("mmachinedbool").checked);
-                })
-                document.getElementById("mreadybool").addEventListener("change", function() {
-                    set(ref(database, mpath + "Ready for Testing"), document.getElementById("mreadybool").checked);
-                })
+                if (taskData.Makroætsning.Valid) {
+                    document.getElementById("mcutbool").addEventListener("change", function() {
+                        set(ref(database, mpath + "Cut"), document.getElementById("mcutbool").checked);
+                    })
+                    document.getElementById("mmachinedbool").addEventListener("change", function() {
+                        set(ref(database, mpath + "Machined"), document.getElementById("mmachinedbool").checked);
+                    })
+                    document.getElementById("mreadybool").addEventListener("change", function() {
+                        set(ref(database, mpath + "Ready for Testing"), document.getElementById("mreadybool").checked);
+                    })
+                }
             }
 
         })
