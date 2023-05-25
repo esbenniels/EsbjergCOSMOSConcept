@@ -69,6 +69,46 @@ function addPeriods(input) {
                 document.getElementById("macroData1").style.display = "none";
                 document.getElementById("macroData2").style.display = "none";
 
+                // tensile
+                if (taskData.Trækprøvning.Valid) {
+                    document.getElementById('tcutbool').checked = taskData.Trækprøvning['Status']['Cut'];
+                    document.getElementById('tmachinedbool').checked = taskData.Trækprøvning.Status['Machined'];
+                    document.getElementById('treadybool').checked = taskData.Trækprøvning.Status['Ready for Testing'];
+                } else {
+                    console.log("clearing tensile test");
+                    removeAllChildNodes(document.getElementById("tensileTable"));
+                }
+
+                // bend
+                if (taskData.Bøjeprøvning.Valid) {
+                    document.getElementById('bcutbool').checked = taskData.Bøjeprøvning.Status['Cut'];
+                    document.getElementById('bmachinedbool').checked = taskData.Bøjeprøvning.Status['Machined'];
+                    document.getElementById('breadybool').checked = taskData.Bøjeprøvning.Status['Ready for Testing'];
+                } else {
+                    console.log("clearing bend test");
+                    removeAllChildNodes(document.getElementById("bendTable"));
+                }
+
+                // impact
+                if (taskData.Slagsejhedsprøvning.Valid) {
+                    document.getElementById('scutbool').checked = taskData.Slagsejhedsprøvning.Status['Cut'];
+                    document.getElementById('smachinedbool').checked = taskData.Slagsejhedsprøvning.Status['Machined'];
+                    document.getElementById('sreadybool').checked = taskData.Slagsejhedsprøvning.Status['Ready for Testing'];
+                } else {
+                    console.log("clearing impact test");
+                    removeAllChildNodes(document.getElementById("impactTable"));
+                }
+
+                // macro
+                if (taskData.Makroætsning.Valid) {
+                    document.getElementById('mcutbool').checked = taskData.Makroætsning.Status['Cut'];
+                    document.getElementById('mmachinedbool').checked = taskData.Makroætsning.Status['Machined'];
+                    document.getElementById('mreadybool').checked = taskData.Makroætsning.Status['Ready for Testing'];
+                } else {
+                    console.log("clearing macro test");
+                    removeAllChildNodes(document.getElementById("macroTable"));
+                }
+
 
             } else { // now in desktop browser
                 // show all information
