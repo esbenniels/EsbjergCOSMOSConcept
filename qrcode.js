@@ -111,13 +111,13 @@ onAuthStateChanged(auth, user => {
 //     })
 // })
 
-onAuthStateChanged(auth, user => {
-    if (user) {
-        document.getElementById('sign-in-state').innerText = "Signed In";
-    } else {
-        document.getElementById('sign-in-state').innerText = "Signed Out";
-    }
-})
+// onAuthStateChanged(auth, user => {
+//     if (user) {
+//         document.getElementById('sign-in-state').innerText = "Signed In";
+//     } else {
+//         document.getElementById('sign-in-state').innerText = "Signed Out";
+//     }
+// })
 
 document.getElementById("task_btn").addEventListener("click", (e) => {
     e.preventDefault();

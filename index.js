@@ -47,6 +47,20 @@ function addPeriods(input) {
                 navigator.userAgent.match(/Windows Phone/i)) {
                 // now in mobile browser
                 // only show crucial information
+
+                document.getElementById("tensileData1").style.display = "none";
+                document.getElementById("tensileData2").style.display = "none";
+
+                document.getElementById("bendData1").style.display = "none";
+                document.getElementById("bendData2").style.display = "none";
+
+                document.getElementById("impactData1").style.display = "none";
+                document.getElementById("impactData2").style.display = "none";
+
+                document.getElementById("macroData1").style.display = "none";
+                document.getElementById("macroData2").style.display = "none";
+
+
             } else { // now in desktop browser
                 // show all information
                 document.querySelector("#taskno").innerText = addPeriods(task);
