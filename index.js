@@ -55,6 +55,7 @@ function addPeriods(input) {
 
                 var taskTitle = document.createElement("h5");
                 taskTitle.innerText = "Task Nummer: " + task;
+                removeAllChildNodes(document.getElementById("auxiliaryheader"));
                 document.getElementById("auxiliaryheader").appendChild(taskTitle);
 
                 document.getElementById("tensileData1").style.display = "none";
