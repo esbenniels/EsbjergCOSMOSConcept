@@ -124,6 +124,6 @@ document.getElementById("task_btn").addEventListener("click", (e) => {
     removeAllChildNodes(document.getElementById("qr-code"));
     const task = document.getElementById("task").value;
     document.getElementById("qr-code").src = 
-        "https://api.qrserver.com/v1/create-qr-code/?data=https://esbenniels.github.io/?task=" + task + "&size=200x200";
+        "https://api.qrserver.com/v1/create-qr-code/?data=https://esbenniels.github.io/EsbjergCOSMOSConcept/?task=" + task + "&size=200x200";
 })
 
