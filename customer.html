@@ -6,7 +6,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-     <title>FORCE Technology QR-Kode-Portal</title>
+     <title>FORCE Technology Kundeportal</title>
  
      <!-- Bootstrap CSS CDN -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -40,7 +40,7 @@
  
              <ul class="list-unstyled components">
                  <li>
-                     <a href="index.html">Hjemmeside
+                     <a href="customer.html">Hjemmeside
                          <svg xmlns="http://www.w3.org/2000/svg " style="text-align: right" width="16" height="16"
                              fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                              <path fill-rule="evenodd"
@@ -156,26 +156,10 @@
  
          <div id="content" class = "text-center">
              <div class="text-center">
-                 <h1>FORCE Technology QR-Kode Portal</h1>
+                 <h1>FORCE Technology Kundeportal</h1>
              </div>
-             <div class="text-center">
-                <h2>Udvikle QR Kode</h2>
-                <br></br>
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class = "form-label" for="task">Indsat Task Nummer Her: </label>
-                        <input type="text" class = "form-control" id = "task">
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-primary" id = "task_btn">Indsend</button>
-                    </div>
-                </div>
-                <br></br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <img src="" alt="" id = "qr-code">
-                    </div>
-                </div>
+             <div class="container pad">
+                 <div class="pad" id = 'loginMessage'></div>
              </div>
          </div>
           
@@ -213,7 +197,7 @@
              });
          });
      </script>
-     <script type = "module" src="../JS/qrcode.js"></script>
+     <script type = "module" src="customer.js"></script>
  
  
  </body>
