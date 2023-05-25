@@ -53,10 +53,7 @@ function addPeriods(input) {
                 document.getElementById("theader2").style.display = "none";
                 document.getElementById("theader2info").style.display = "none";
 
-                var taskTitle = document.createElement("h5");
-                taskTitle.innerText = "Task Nummer: " + task;
-                removeAllChildNodes(document.getElementById("auxiliaryheader"));
-                document.getElementById("auxiliaryheader").appendChild(taskTitle);
+                document.getElementById("aux").innerText = "Task Nummer: " + task;
 
                 document.getElementById("tensileData1").style.display = "none";
                 document.getElementById("tensileData2").style.display = "none";
