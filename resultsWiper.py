@@ -17,7 +17,7 @@ data = {
         "NDT": {
             "Visual": {
                 "Result": False,
-                "Comments": "Nothing to Report"
+                "Comments": "Defects Visible"
             },
             "Ultrasonic": {
                 "Result": True,
@@ -49,7 +49,7 @@ data = {
                     "227296-8-2": False,
                     "227296-8-3": False,
                     "227296-8-4": True,
-                    "227296-8-5": False,
+                    "227296-8-5": True,
                     "227296-8-6": True
                 },
                 "Comments": "Nothing to Report"
@@ -106,8 +106,8 @@ data = {
                 "Comments": ""
             },
             "Ultrasonic": {
-                "Result": True,
-                "Comments": ""
+                "Result": False,
+                "Comments": "Slag Inclusion"
             },
             "Magnetic": {
                 "Result": True,
@@ -118,11 +118,11 @@ data = {
             "Tensile": {
                 "UTSMin": 470,
                 "Result": {
-                    "-7-1D": 518,
+                    "-7-1D": 489,
                     "-7-1M": 493,
                     "-7-1R": 516,
-                    "-7-2D": 520,
-                    "-7-2M": 500,
+                    "-7-2D": 515,
+                    "-7-2M": 490,
                     "-7-2R": 524
                 },
                 "Comments": ""
@@ -133,7 +133,7 @@ data = {
                 "Result": {
                     "227296-8-1": True,
                     "227296-8-2": False,
-                    "227296-8-3": False,
+                    "227296-8-3": True,
                     "227296-8-4": True
                 },
                 "Comments": ""

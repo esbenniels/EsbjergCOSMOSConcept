@@ -31,11 +31,48 @@ function addPeriods(input) {
     return input.replace(/\_\(\)/g, ".");
 }
 
+function populateDropdown() {
+    onValue(ref(database, "Tasks"), (snapshot) => {
+        removeAllChildNodes(document.getElementById("taskno"));
+        var data = snapshot.val();
+        for (let task in data) {
+            var option = document.createElement("option");
+            option.innerText = addPeriods(task);
+            option.value = addPeriods(task);
+            document.getElementById("taskno").appendChild(option);
+        }
+        // removeAllChildNodes(document.getElementById("wpqrno"));
+        // onValue(ref(database, "Tasks/"+removePeriods(document.getElementById("taskno").value)), (snapshot) => {
+        //     for (let wpqr in snapshot.val()) {
+        //         var option = document.createElement("option");
+        //         option.innerText = wpqr;
+        //         option.value = wpqr;
+        //         document.getElementById("wpqrno").appendChild(option);
+        //     }
+        // })
+    })
+}
+
+// document.querySelector("#taskno").addEventListener("change", function() {
+//     removeAllChildNodes(document.getElementById("wpqrno"));
+//     onValue(ref(database, "Results/"+removePeriods(document.getElementById("taskno").value)), (snapshot) => {
+//         for (let wpqr in snapshot.val()) {
+//             var option = document.createElement("option");
+//             option.innerText = wpqr;
+//             option.value = wpqr;
+//             document.getElementById("wpqrno").appendChild(option);
+//         }
+//     })
+// })
+
+
+
 // HTML Argument Handling
 {
     const URLParams = new URLSearchParams(window.location.search);
     const task = URLParams.get("task");
-    if (task != null) {
+
+    function populate(task) {
         var taskData;
         onValue(ref(database, "Tasks/" + removePeriods(task)), (snapshot) => {
             console.log("retrieving");
@@ -114,7 +151,7 @@ function addPeriods(input) {
 
             } else { // now in desktop browser
                 // show all information
-                document.querySelector("#taskno").innerText = addPeriods(task);
+                document.querySelector("#task").innerText = addPeriods(task);
                 document.querySelector("#refno").innerText = taskData.ReferenceNummer;
                 document.querySelector("#clientEmail").innerText = taskData.ClientInfo['ContactEmail'];
                 document.querySelector("#order").innerText = taskData.PreparedBy;
@@ -252,13 +289,21 @@ function addPeriods(input) {
             }
 
         })
+    }
 
-        
 
 
+    if (task != null) {     // if URL arguments used
+        removeAllChildNodes(document.getElementById("optional-input"));
+        populate(task);
     } else {
-        // hide allData div
-        removeAllChildNodes(document.getElementById('allData'));
+        populateDropdown();
+        document.getElementById("allData").style.display = "none";
+        document.getElementById("submit").addEventListener("click", function(e) {
+            e.preventDefault();
+            populate(document.getElementById("taskno").value);
+            document.getElementById("allData").style.display = "block";
+        })
     }
 }
 

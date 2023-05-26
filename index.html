@@ -165,6 +165,24 @@
                  <h1>FORCE Technology Task Data Portal</h1>
              </div>
              <br>
+             <div id="optional-input">
+                <form>
+                    <div class="row">
+                        <div class="col-md-5 text-left">
+                            <label for="taskno">Vælg Task Nummer Her</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <select name = "taskno" id = "taskno" class = "form-control"></select>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <button class="btn btn-primary" id = "submit">Indsend</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br>
              <div id="allData" class = "text-center">
                 <div id="auxiliaryheader">
                     <h5 id = "aux"></h5>
@@ -182,7 +200,7 @@
                 </div>
                 <div class="row" id = "theaderinfo">
                     <div class="col-md-4">
-                        <p id="taskno"></p>
+                        <p id="task"></p>
                     </div>
                     <div class="col-md-4">
                         <p id="refno"></p>

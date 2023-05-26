@@ -66,8 +66,8 @@ document.querySelector("#taskno").addEventListener("change", function() {
 })
 
 function boolToAccept(boolean) {
-    if (boolean) return "Acceptable";
-    else return "Not Acceptable";
+    if (boolean) return "Acceptabelt";
+    else return "Ikke Acceptabelt";
 }
 
 var taskData;
@@ -83,25 +83,25 @@ document.querySelector("#submit").addEventListener("click", function(e) {
         }
         var assignments = {
             vacc: boolToAccept(taskData['NDT']['Visual']['Result']),
-            visual_comments: "Comments: " + taskData.NDT.Visual.Comments,
+            visual_comments: "Kommentarer: " + taskData.NDT.Visual.Comments,
             uacc: boolToAccept(taskData.NDT.Ultrasonic.Result),
-            ultrasonic_comments: "Comments: " + taskData.NDT.Ultrasonic.Comments,
+            ultrasonic_comments: "Kommentarer: " + taskData.NDT.Ultrasonic.Comments,
             macc: boolToAccept(taskData.NDT.Magnetic.Result),
-            magnetic_comments: "Comments: " + taskData.NDT.Magnetic.Comments,
-            tavg: "Average Tensile Strength: " + String(Math.round(sum/n)) + " MPa",
-            tensile_comments: "Comments: " + taskData.DT.Tensile.Comments,
-            bend_comments: "Comments: " + taskData.DT.Bend.Comments,
-            impact_comments: "Comments: " + taskData.DT.Impact.Comments,
+            magnetic_comments: "Kommentarer: " + taskData.NDT.Magnetic.Comments,
+            tavg: "Gennemsnitlig Trækstyrke: " + String(Math.round(sum/n)) + " MPa",
+            tensile_comments: "Kommentarer: " + taskData.DT.Tensile.Comments,
+            bend_comments: "Kommentarer: " + taskData.DT.Bend.Comments,
+            impact_comments: "Kommentarer: " + taskData.DT.Impact.Comments,
             macro_acc: boolToAccept(taskData.DT.Macro.Result),
-            macro_comments: "Comments: " + taskData.DT.Macro.Comments,
-            hardness_comments: "Comments: " + taskData.DT.Hardness.Comments
+            macro_comments: "Kommentarer: " + taskData.DT.Macro.Comments,
+            hardness_comments: "Kommentarer: " + taskData.DT.Hardness.Comments
         }
 
         for (let key in assignments) {
             document.getElementById(key).innerText = String(assignments[key]);
-            if (String(assignments[key]) == "Acceptable") {
+            if (String(assignments[key]) == "Acceptabelt") {
                 document.getElementById(key).style.color = "green";
-            } else if (String(assignments[key]) == "Not Acceptable") {
+            } else if (String(assignments[key]) == "Ikke Acceptabelt") {
                 document.getElementById(key).style.color = "red";
             }
         }
