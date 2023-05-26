@@ -71,40 +71,80 @@ function boolToAccept(boolean) {
 }
 
 var taskData;
-document.querySelector("#submit").addEventListener("click", function() {
-    const path = "Results/"+removePeriods(document.getElementById("taskno").value) + "/" + document.getElementById("wpqrno");
-    console.log(path);
+document.querySelector("#submit").addEventListener("click", function(e) {
+    e.preventDefault();
+    const path = "Results/"+removePeriods(document.getElementById("taskno").value) + "/" + document.getElementById("wpqrno").value;
     onValue(ref(database, path), (snapshot) => {
         taskData = snapshot.val();
-        var tensileAvg;
-        var sum = 0;
-        var n = 0;
+        var sum = 0, n = 0;
         for (let strength in taskData.DT.Tensile.Result) {
             sum += taskData.DT.Tensile.Result[strength];
             n++;
         }
-        tensileAvg = sum/n;
         var assignments = {
             vacc: boolToAccept(taskData['NDT']['Visual']['Result']),
-            visual_comments: taskData.NDT.Visual.Comments,
+            visual_comments: "Comments: " + taskData.NDT.Visual.Comments,
             uacc: boolToAccept(taskData.NDT.Ultrasonic.Result),
-            ultrasonic_comments: taskData.NDT.Ultrasonic.Comments,
+            ultrasonic_comments: "Comments: " + taskData.NDT.Ultrasonic.Comments,
             macc: boolToAccept(taskData.NDT.Magnetic.Result),
-            magnetic_comments: taskData.NDT.Magnetic.Comments,
-            tavg: "Average Tensile Strength: " + String(tensileAvg),
-            tensile_comments: taskData.DT.Tensile.Comments,
-            // handle bend acceptance display
-            bend_comments: taskData.DT.Bend.Comments,
-            // handle impact energy averages
-            impact_comments: taskData.DT.Impact.Comments,
+            magnetic_comments: "Comments: " + taskData.NDT.Magnetic.Comments,
+            tavg: "Average Tensile Strength: " + String(Math.round(sum/n)) + " MPa",
+            tensile_comments: "Comments: " + taskData.DT.Tensile.Comments,
+            bend_comments: "Comments: " + taskData.DT.Bend.Comments,
+            impact_comments: "Comments: " + taskData.DT.Impact.Comments,
             macro_acc: boolToAccept(taskData.DT.Macro.Result),
-            macro_comments: taskData.DT.Macro.Comments,
-            // handle hardness data points
-            hardness_comments: taskData.DT.Hardness.Comments
+            macro_comments: "Comments: " + taskData.DT.Macro.Comments,
+            hardness_comments: "Comments: " + taskData.DT.Hardness.Comments
         }
 
-        // loop through assignments and use document.getElementById()
-        // and innerText to fill in fields
+        for (let key in assignments) {
+            document.getElementById(key).innerText = String(assignments[key]);
+            if (String(assignments[key]) == "Acceptable") {
+                document.getElementById(key).style.color = "green";
+            } else if (String(assignments[key]) == "Not Acceptable") {
+                document.getElementById(key).style.color = "red";
+            }
+        }
+
+        // handle bend test acceptance display
+        var bendRes = taskData.DT.Bend.Result;
+        removeAllChildNodes(document.getElementById("bacc"));
+        var innerHTMLStr = "";
+        for (let antal in bendRes) {
+            if (bendRes[antal]) {  // acceptable, create check mark
+                innerHTMLStr += "<svg xmlns='http://www.w3.org/2000/svg' style = 'margin: auto 2%' width='25' height='25' fill='green' class='bi bi-check2-square' viewBox='0 0 16 16'><path d='M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z'/><path d='m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z'/></svg>";
+            } else {  // not acceptable, create x mark
+                innerHTMLStr += "<svg xmlns='http://www.w3.org/2000/svg' style = 'margin: auto 2%' width='21' height='21' fill='red' class='bi bi-x-square' viewBox='0 0 16 16'><path d='M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z'/><path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/></svg>";
+            }
+        }
+        document.getElementById("bacc").innerHTML = innerHTMLStr;
+
+        // handle impact energy averages display modal
+        var energies = taskData.DT.Impact.Result;
+        removeAllChildNodes(document.getElementById("impact_energies"));
+        for (let trial in energies) {
+            var tr = document.createElement("tr"), td1 = document.createElement("td"), td2 = document.createElement("td");
+            td1.classList.add("text-center"); td1.innerText = trial;
+            td2.classList.add("text-center"); td2.innerText = energies[trial];
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            document.getElementById("impact_energies").appendChild(tr);
+        }
+
+        // handle hardness display modal
+        var hardnesses = taskData.DT.Hardness.Result;
+        removeAllChildNodes(document.getElementById("hardness_levels"));
+        for (let trial in hardnesses) {
+            var tr = document.createElement("tr"), td1 = document.createElement("td"), td2 = document.createElement("td"), 
+                td3 = document.createElement("td"), td4 = document.createElement("td");
+            td1.classList.add("text-center"); td1.innerText = trial;
+            td2.classList.add("text-center"); td2.innerText = hardnesses[trial].BaseAvg;
+            td3.classList.add("text-center"); td3.innerText = hardnesses[trial].HAZAvg;
+            td4.classList.add("text-center"); td4.innerText = hardnesses[trial].WeldAvg;
+            tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4);
+            document.getElementById("hardness_levels").appendChild(tr);
+        }
+
     })
 })
 

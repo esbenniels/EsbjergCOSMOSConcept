@@ -227,7 +227,7 @@
                             <!-- results -->
                             <tr>
                                 <td class = "text-left" style="width: 25%"><b>Tensile Testing</b></td>
-                                <td colspan="3" id = "tavg">Average Tensile Strength: </td>
+                                <td colspan="2" id = "tavg">Average Tensile Strength: </td>
                             </tr>
                             <tr>
                                 <td colspan = "3" id = "tensile_comments">Comments: </td>
@@ -244,7 +244,16 @@
                             <tr>
                                 <td class = "text-left"><b>Bend Testing</b></td>
                                 <td>Acceptance Results: </td>
-                                <td id = "bacc"></td>
+                                <td id = "bacc">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
+                                        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                                        <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg> -->
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="3" rowspan="2" id = "bend_comments">Comments: </td>
@@ -264,12 +273,13 @@
                                 <td class="text-left" style = "width: 25%;"><b>Impact Testing</b></td>
                                 <td id = "" class = "text-left">
                                     <button class = "btn-primary" data-toggle="modal" data-target="#energyModal" href="#">
-                                        Show energy averages
+                                        Show Impact Energies
                                     </button>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td colspan="3" rowspan="2" id = "impact_comments">Comments: </td>
+                                <td colspan="3" id = "impact_comments">Comments: </td>
                             </tr>
                             <!-- comments -->
                             <tr>
@@ -298,13 +308,11 @@
                             <tr>
                                 <td class="text-left" style = "width: 25%;"><b>Hardness Testing</b></td>
                                 <td>
-                                    <label for="trial-select">Select a Trial</label>
-                                    <select name="trial-select" id="trial-select">
-                                        <option value="">I</option>
-                                        <option value="">II</option>
-                                    </select>
+                                    <button class = "btn-primary" data-toggle="modal" data-target="#hardnessModal" href="#">
+                                        Show Hardness Trials
+                                    </button>
                                 </td>
-                                <td id="info"></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td colspan="3" id = "hardness_comments">Comments: </td>
@@ -332,10 +340,32 @@
                                     <th style = "width: 50%;" class = "text-center">Average Energy</th>
                                 </thead>
                                 <tbody id = "impact_energies">
-                                    <tr>
-                                        <td class = "text-center">VHT 0/2</td>
-                                        <td class = "text-center">61</td>
-                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="hardnessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Average Hardness Levels</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="hardnesses" style = "width: 100%;">
+                                <thead>
+                                    <th style = "width: 25%;" class = "text-center">Trial</th>
+                                    <th style = "width: 25%;" class = "text-center">Base</th>
+                                    <th style = "width: 25%;" class = "text-center">HAZ</th>
+                                    <th style = "width: 25%;" class = "text-center">Weld</th>
+                                </thead>
+                                <tbody id = "hardness_levels">
                                 </tbody>
                             </table>
                         </div>

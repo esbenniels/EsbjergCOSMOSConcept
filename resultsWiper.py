@@ -16,16 +16,16 @@ data = {
     "WPQR-1": {
         "NDT": {
             "Visual": {
-                "Result": True,
-                "Comments": ""
+                "Result": False,
+                "Comments": "Nothing to Report"
             },
             "Ultrasonic": {
                 "Result": True,
-                "Comments": ""
+                "Comments": "Nothing to Report"
             },
             "Magnetic": {
                 "Result": True,
-                "Comments": ""
+                "Comments": "Nothing to Report"
             }
         }, 
         "DT": {
@@ -39,32 +39,41 @@ data = {
                     "-7-2M": 500,
                     "-7-2R": 524
                 },
-                "Comments": ""
+                "Comments": "All tensile strengths above UTS Min value"
             },
             "Bend": {
                 "Specified": 180,
                 "Diameter": 40,
                 "Result": {
                     "227296-8-1": True,
-                    "227296-8-2": True,
-                    "227296-8-3": True,
-                    "227296-8-4": True
+                    "227296-8-2": False,
+                    "227296-8-3": False,
+                    "227296-8-4": True,
+                    "227296-8-5": False,
+                    "227296-8-6": True
                 },
-                "Comments": ""
+                "Comments": "Nothing to Report"
             },
             "Impact": {
                 "Dimensions": "10x10x55 mm",
                 "SpecifiedType": "KV2",
                 "Temperature": -50,
                 "Result": {
-                    "Averages": [85, 75, 63, 175, 290, 87, 77, 191]
+                    "VWT 0-2": 61,
+                    "VHT 0-2 Old Weld": 50,
+                    "VHT 2-2 Old Weld": 73,
+                    "VHT 0-2 BM": 268,
+                    "VHT 2-2 BM": 243, 
+                    "VWT 0-50": 81,
+                    "VHT 2-50 Old Weld": 52,
+                    "VHT 2-50 BM": 164
                 },
-                "Comments": ""
+                "Comments": "Large energy variations dependent on notch placement"
             },
             "Macro": {
                 "Result": True,
                 "Standard": "EN ISO 5817:2014",
-                "Comments": ""
+                "Comments": "Nothing to Report"
             },
             "Hardness": {
                 "Type": "HV10",
@@ -86,7 +95,7 @@ data = {
                         "WeldAvg": 247
                     }
                 },
-                "Comments": ""
+                "Comments": "Hardness generally higher in weld metal, lowest in base material"
             }
         }
     },
@@ -123,8 +132,8 @@ data = {
                 "Diameter": 40,
                 "Result": {
                     "227296-8-1": True,
-                    "227296-8-2": True,
-                    "227296-8-3": True,
+                    "227296-8-2": False,
+                    "227296-8-3": False,
                     "227296-8-4": True
                 },
                 "Comments": ""
@@ -134,7 +143,14 @@ data = {
                 "SpecifiedType": "KV2",
                 "Temperature": -50,
                 "Result": {
-                    "Averages": [85, 75, 63, 175, 290, 87, 77, 191]
+                    "VWT 0-2": 61,
+                    "VHT 0-2 Old Weld": 50,
+                    "VHT 2-2 Old Weld": 73,
+                    "VHT 0-2 BM": 268,
+                    "VHT 2-2 BM": 243, 
+                    "VWT 0-50": 81,
+                    "VHT 2-50 Old Weld": 52,
+                    "VHT 2-50 BM": 164
                 },
                 "Comments": ""
             },
