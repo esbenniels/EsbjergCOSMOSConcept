@@ -70,6 +70,14 @@ function boolToAccept(boolean) {
     else return "Ikke Acceptabelt";
 }
 
+function showOrNot(possible, bool) {
+    if (bool) {
+        return possible;
+    } else {
+        return "";
+    }
+}
+
 var taskData;
 document.querySelector("#submit").addEventListener("click", function(e) {
     e.preventDefault();
@@ -82,19 +90,19 @@ document.querySelector("#submit").addEventListener("click", function(e) {
             n++;
         }
         var assignments = {
-            vacc: boolToAccept(taskData['NDT']['Visual']['Result']),
-            visual_comments: "Kommentarer: " + taskData.NDT.Visual.Comments,
-            uacc: boolToAccept(taskData.NDT.Ultrasonic.Result),
-            ultrasonic_comments: "Kommentarer: " + taskData.NDT.Ultrasonic.Comments,
-            macc: boolToAccept(taskData.NDT.Magnetic.Result),
-            magnetic_comments: "Kommentarer: " + taskData.NDT.Magnetic.Comments,
-            tavg: "Gennemsnitlig Trækstyrke: " + String(Math.round(sum/n)) + " MPa",
-            tensile_comments: "Kommentarer: " + taskData.DT.Tensile.Comments,
-            bend_comments: "Kommentarer: " + taskData.DT.Bend.Comments,
-            impact_comments: "Kommentarer: " + taskData.DT.Impact.Comments,
-            macro_acc: boolToAccept(taskData.DT.Macro.Result),
-            macro_comments: "Kommentarer: " + taskData.DT.Macro.Comments,
-            hardness_comments: "Kommentarer: " + taskData.DT.Hardness.Comments
+            vacc: showOrNot(boolToAccept(taskData['NDT']['Visual']['Result']), taskData.NDT.Visual.Completed),
+            visual_comments: "Kommentarer: " + showOrNot(taskData.NDT.Visual.Comments, taskData.NDT.Visual.Completed),
+            uacc: showOrNot(boolToAccept(taskData.NDT.Ultrasonic.Result),taskData.NDT.Ultrasonic.Completed),
+            ultrasonic_comments: "Kommentarer: " + showOrNot(taskData.NDT.Ultrasonic.Comments, taskData.NDT.Ultrasonic.Completed),
+            macc: showOrNot(boolToAccept(taskData.NDT.Magnetic.Result), taskData.NDT.Magnetic.Completed),
+            magnetic_comments: "Kommentarer: " + showOrNot(taskData.NDT.Magnetic.Comments, taskData.NDT.Magnetic.Completed),
+            tavg: "Gennemsnitlig Trækstyrke: " + showOrNot(String(Math.round(sum/n)) + " MPa", taskData.DT.Tensile.Completed),
+            tensile_comments: "Kommentarer: " + showOrNot(taskData.DT.Tensile.Comments, taskData.DT.Tensile.Completed),
+            bend_comments: "Kommentarer: " + showOrNot(taskData.DT.Bend.Comments, taskData.DT.Bend.Completed),
+            impact_comments: "Kommentarer: " + showOrNot(taskData.DT.Impact.Comments, taskData.DT.Impact.Completed),
+            macro_acc: showOrNot(boolToAccept(taskData.DT.Macro.Result), taskData.DT.Macro.Completed),
+            macro_comments: "Kommentarer: " + showOrNot(taskData.DT.Macro.Comments, taskData.DT.Macro.Completed),
+            hardness_comments: "Kommentarer: " + showOrNot(taskData.DT.Hardness.Comments, taskData.DT.Hardness.Completed)
         }
 
         for (let key in assignments) {
@@ -107,42 +115,77 @@ document.querySelector("#submit").addEventListener("click", function(e) {
         }
 
         // handle bend test acceptance display
-        var bendRes = taskData.DT.Bend.Result;
-        removeAllChildNodes(document.getElementById("bacc"));
-        var innerHTMLStr = "";
-        for (let antal in bendRes) {
-            if (bendRes[antal]) {  // acceptable, create check mark
-                innerHTMLStr += "<svg xmlns='http://www.w3.org/2000/svg' style = 'margin: auto 2%' width='25' height='25' fill='green' class='bi bi-check2-square' viewBox='0 0 16 16'><path d='M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z'/><path d='m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z'/></svg>";
-            } else {  // not acceptable, create x mark
-                innerHTMLStr += "<svg xmlns='http://www.w3.org/2000/svg' style = 'margin: auto 2%' width='21' height='21' fill='red' class='bi bi-x-square' viewBox='0 0 16 16'><path d='M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z'/><path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/></svg>";
+        if (taskData.DT.Bend.Completed) {
+            var bendRes = taskData.DT.Bend.Result;
+            removeAllChildNodes(document.getElementById("bacc"));
+            var innerHTMLStr = "";
+            for (let antal in bendRes) {
+                if (bendRes[antal]) {  // acceptable, create check mark
+                    innerHTMLStr += "<svg xmlns='http://www.w3.org/2000/svg' style = 'margin: auto 2%' width='25' height='25' fill='green' class='bi bi-check2-square' viewBox='0 0 16 16'><path d='M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z'/><path d='m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z'/></svg>";
+                } else {  // not acceptable, create x mark
+                    innerHTMLStr += "<svg xmlns='http://www.w3.org/2000/svg' style = 'margin: auto 2%' width='21' height='21' fill='red' class='bi bi-x-square' viewBox='0 0 16 16'><path d='M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z'/><path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/></svg>";
+                }
             }
+            document.getElementById("bacc").innerHTML = innerHTMLStr;
         }
-        document.getElementById("bacc").innerHTML = innerHTMLStr;
 
         // handle impact energy averages display modal
-        var energies = taskData.DT.Impact.Result;
-        removeAllChildNodes(document.getElementById("impact_energies"));
-        for (let trial in energies) {
-            var tr = document.createElement("tr"), td1 = document.createElement("td"), td2 = document.createElement("td");
-            td1.classList.add("text-center"); td1.innerText = trial;
-            td2.classList.add("text-center"); td2.innerText = energies[trial];
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            document.getElementById("impact_energies").appendChild(tr);
+        if (taskData.DT.Impact.Completed) {
+            document.getElementById("ibtn").disabled = false;
+            var energies = taskData.DT.Impact.Result;
+            removeAllChildNodes(document.getElementById("impact_energies"));
+            for (let trial in energies) {
+                var tr = document.createElement("tr"), td1 = document.createElement("td"), td2 = document.createElement("td");
+                td1.classList.add("text-center"); td1.innerText = trial;
+                td2.classList.add("text-center"); td2.innerText = energies[trial];
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                document.getElementById("impact_energies").appendChild(tr);
+            }
+        } else {
+            document.getElementById("ibtn").disabled = true;
         }
 
         // handle hardness display modal
-        var hardnesses = taskData.DT.Hardness.Result;
-        removeAllChildNodes(document.getElementById("hardness_levels"));
-        for (let trial in hardnesses) {
-            var tr = document.createElement("tr"), td1 = document.createElement("td"), td2 = document.createElement("td"), 
-                td3 = document.createElement("td"), td4 = document.createElement("td");
-            td1.classList.add("text-center"); td1.innerText = trial;
-            td2.classList.add("text-center"); td2.innerText = hardnesses[trial].BaseAvg;
-            td3.classList.add("text-center"); td3.innerText = hardnesses[trial].HAZAvg;
-            td4.classList.add("text-center"); td4.innerText = hardnesses[trial].WeldAvg;
-            tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4);
-            document.getElementById("hardness_levels").appendChild(tr);
+        if (taskData.DT.Hardness.Completed) {
+            document.getElementById("hbtn").disabled = false;
+            var hardnesses = taskData.DT.Hardness.Result;
+            removeAllChildNodes(document.getElementById("hardness_levels"));
+            for (let trial in hardnesses) {
+                var tr = document.createElement("tr"), td1 = document.createElement("td"), td2 = document.createElement("td"), 
+                    td3 = document.createElement("td"), td4 = document.createElement("td");
+                td1.classList.add("text-center"); td1.innerText = trial;
+                td2.classList.add("text-center"); td2.innerText = hardnesses[trial].BaseAvg;
+                td3.classList.add("text-center"); td3.innerText = hardnesses[trial].HAZAvg;
+                td4.classList.add("text-center"); td4.innerText = hardnesses[trial].WeldAvg;
+                tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4);
+                document.getElementById("hardness_levels").appendChild(tr);
+            }
+        } else {
+            document.getElementById("hbtn").disabled = true;
+        }
+
+        var checkAssignments = {
+            visual_check: taskData.NDT.Visual.Completed,
+            ultrasonic_check: taskData.NDT.Ultrasonic.Completed,
+            magnetic_check: taskData.NDT.Magnetic.Completed,
+            tcheck: taskData.DT.Tensile.Completed,
+            bcheck: taskData.DT.Bend.Completed,
+            icheck: taskData.DT.Impact.Completed,
+            mcheck: taskData.DT.Macro.Completed,
+            hcheck: taskData.DT.Hardness.Completed,
+        }
+        for (let check in checkAssignments) {
+            removeAllChildNodes(document.getElementById(check));
+            if (checkAssignments[check]) {
+                document.getElementById(check).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-square-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+            </svg>`;
+            } else {
+                document.getElementById(check).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-square" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            </svg>`;
+            }
         }
 
     })

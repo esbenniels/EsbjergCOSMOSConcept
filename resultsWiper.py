@@ -16,20 +16,24 @@ data = {
     "WPQR-1": {
         "NDT": {
             "Visual": {
+                "Completed": True,
                 "Result": False,
                 "Comments": "Defects Visible"
             },
             "Ultrasonic": {
+                "Completed": False, 
                 "Result": True,
                 "Comments": "Nothing to Report"
             },
             "Magnetic": {
+                "Completed": True,
                 "Result": True,
                 "Comments": "Nothing to Report"
             }
         }, 
         "DT": {
             "Tensile": {
+                "Completed": True,
                 "UTSMin": 470,
                 "Result": {
                     "-7-1D": 518,
@@ -42,6 +46,7 @@ data = {
                 "Comments": "All tensile strengths above UTS Min value"
             },
             "Bend": {
+                "Completed": True,
                 "Specified": 180,
                 "Diameter": 40,
                 "Result": {
@@ -55,6 +60,7 @@ data = {
                 "Comments": "Nothing to Report"
             },
             "Impact": {
+                "Completed": False,
                 "Dimensions": "10x10x55 mm",
                 "SpecifiedType": "KV2",
                 "Temperature": -50,
@@ -71,11 +77,13 @@ data = {
                 "Comments": "Large energy variations dependent on notch placement"
             },
             "Macro": {
+                "Completed": True,
                 "Result": True,
                 "Standard": "EN ISO 5817:2014",
                 "Comments": "Nothing to Report"
             },
             "Hardness": {
+                "Completed": False,
                 "Type": "HV10",
                 "Max": 350,
                 "Result": {
@@ -102,20 +110,24 @@ data = {
     "WPQR-2": {
         "NDT": {
             "Visual": {
+                "Completed": True,
                 "Result": True,
                 "Comments": ""
             },
             "Ultrasonic": {
+                "Completed": True,
                 "Result": False,
                 "Comments": "Slag Inclusion"
             },
             "Magnetic": {
+                "Completed": False,
                 "Result": True,
                 "Comments": ""
             }
         }, 
         "DT": {
             "Tensile": {
+                "Completed": True,
                 "UTSMin": 470,
                 "Result": {
                     "-7-1D": 489,
@@ -128,6 +140,7 @@ data = {
                 "Comments": ""
             },
             "Bend": {
+                "Completed": False,
                 "Specified": 180,
                 "Diameter": 40,
                 "Result": {
@@ -139,6 +152,7 @@ data = {
                 "Comments": ""
             },
             "Impact": {
+                "Completed": True,
                 "Dimensions": "10x10x55 mm",
                 "SpecifiedType": "KV2",
                 "Temperature": -50,
@@ -155,11 +169,13 @@ data = {
                 "Comments": ""
             },
             "Macro": {
+                "Completed": True,
                 "Result": True,
                 "Standard": "EN ISO 5817:2014",
                 "Comments": ""
             },
             "Hardness": {
+                "Completed": True,
                 "Type": "HV10",
                 "Max": 350,
                 "Result": {
